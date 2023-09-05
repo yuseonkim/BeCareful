@@ -32,10 +32,11 @@ public class IndexController {
     private final OauthService oauthService;
 
     @GetMapping("/test/oauth/login")
-    public @ResponseBody String loginTest(Authentication authentication){
+    public @ResponseBody String loginTest(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2){
         System.out.println("/test/oauth/login ============");
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         System.out.println("authentication: "+ oAuth2User.getAttributes());
+        System.out.println("oauth2User : "+oAuth2.getAttributes());
 
         return "세션 정보 확인";
     }
