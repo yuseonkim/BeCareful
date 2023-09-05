@@ -17,7 +17,9 @@ public class User {
 
     @Column(nullable = false) private String username;
     @Column(nullable = false) private String password;
-    @Column(nullable = false) private String email;
     @Column(nullable = false) private String role;
     @CreationTimestamp private Timestamp cratedDate;
+
+    private String provider;
+    private String providerId;
 }

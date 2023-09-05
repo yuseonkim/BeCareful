@@ -1,5 +1,7 @@
 package com.example.becarefulbackendapi.config;
 
+import com.example.becarefulbackendapi.config.oauth.PrincipalOauth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,12 +17,16 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     //해당 메소드의 리턴오브젝트를 IOC에 등록
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
     @Bean
     public BCryptPasswordEncoder encodedPwd(){
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
 
 
 
@@ -37,7 +43,9 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")
                 .and()
                 .oauth2Login()
-                .loginPage("/loginForm"); // 로그인 완료 시 메인페이지로 이동
+                .loginPage("/loginForm")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService); // 로그인 완료 시 메인페이지로 이동
 
 
 

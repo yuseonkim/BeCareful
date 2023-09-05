@@ -10,12 +10,14 @@ package com.example.becarefulbackendapi.config.auth;
 // Security Session => Authentication => UserDetails
 
 import com.example.becarefulbackendapi.domain.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Data
 public class PrincipalDetails implements UserDetails {
 
     private User user;
