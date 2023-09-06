@@ -83,6 +83,7 @@ public class OauthService {
 
         System.out.println("카카오 아이디 번호 : " + kakaoProfile.getId());
         System.out.println("최근 접속 일자 : " + kakaoProfile.getConnected_at());
+
         return kakaoProfile;
     }
 

@@ -1,5 +1,6 @@
 package com.example.becarefulbackendapi.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,5 +34,14 @@ public class User {
         this.nickname = nickname;
         this.provider = provider;
         this.providerId = providerId;
+    }
+
+    @Builder
+    public User(String username, String password, String role, String nickname, String provider) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.nickname = nickname;
+        this.provider = provider;
     }
 }

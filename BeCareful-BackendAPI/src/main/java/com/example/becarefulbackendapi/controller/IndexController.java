@@ -1,14 +1,13 @@
 package com.example.becarefulbackendapi.controller;
 
+import com.example.becarefulbackendapi.config.Jwt.JwtProvider;
 import com.example.becarefulbackendapi.config.auth.OauthService;
 import com.example.becarefulbackendapi.config.auth.PrincipalDetails;
+import com.example.becarefulbackendapi.config.utils.ApiUtils;
 import com.example.becarefulbackendapi.dto.KakaoProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,13 +22,35 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class IndexController {
-    private final OauthService oauthService;
+//    private final OauthService oauthService;
+////    String externalServerUrl = "http://localhost:8070/main"; // 외부 서버의 URL
+////    HttpHeaders headers = new HttpHeaders();
+////        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+////    HttpEntity<String> entity = new HttpEntity<>(headers);
+////
+////    ResponseEntity<String> response = restTemplate.exchange(
+////            externalServerUrl, HttpMethod.GET, entity, String.class);
+////
+////        return ResponseEntity.ok()
+////                .contentType(MediaType.APPLICATION_JSON)
+////                .body(response.getBody());
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
+//    @GetMapping("/")
+//    public @ResponseBody String index(){
+//        return "index";
+//    }
 
     @GetMapping("/test/oauth/login")
     public @ResponseBody String loginTest(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2){
@@ -40,10 +61,7 @@ public class IndexController {
 
         return "세션 정보 확인";
     }
-    @GetMapping({"", "/"})
-    public String index() {
-        return "index";
-    }
+
 
     @GetMapping("/loginForm")
     public String login() {
@@ -54,6 +72,9 @@ public class IndexController {
     public String joinForm() {
         return "joinForm";
     }
+
+
+//    @PostMapping("/")
 
 //    @GetMapping("/user")
 //    public @ResponseBody String joinProc() {
@@ -94,6 +115,8 @@ public class IndexController {
 ////        return "카카오 유저 정보 :"+response;
 //
 //    }
+
+
 
     @GetMapping("user/agree")
     public String agree(){

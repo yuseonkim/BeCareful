@@ -30,6 +30,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
     public PrincipalDetails(User user){
         this.user = user;
+        this.attributes = attributes;
     }
 
 
