@@ -1,6 +1,8 @@
 package com.example.becarefulbackendapi.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -10,6 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +20,28 @@ public class User {
 
     @Column(nullable = false) private String username;
     @Column(nullable = false) private String password;
-    @Column(nullable = false) private String email;
+    @Column(nullable = false) private String nickname;
     @Column(nullable = false) private String role;
     @CreationTimestamp private Timestamp cratedDate;
+
+    private String provider;
+    private Long providerId;
+
+    public User(String username, String password, String role,String nickname, String provider, Long providerId) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.nickname = nickname;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+
+    @Builder
+    public User(String username, String password, String role, String nickname, String provider) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.nickname = nickname;
+        this.provider = provider;
+    }
 }
