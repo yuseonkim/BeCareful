@@ -62,20 +62,22 @@ public class SecurityConfig {
         });
         http.apply(new CustomSecurityFilterManager());
 
+        http.cors();
+
 
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login()
                 .loginPage("/loginForm")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("https://localhost:3000/")
                 .successHandler(authenticationSuccessHandler)
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
+
         return http.build();
     }
 
