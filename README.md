@@ -18,18 +18,20 @@ To get started with this project, follow these steps:
 
    ```bash
    git clone <repository-url>
+  ```
 
 
 
-
+```
    1. cd project-directory
    2. ./gradlew build
    3. ./gradlew bootRun
+```
 
 
-   he Spring Boot application should now be running locally.
+  The Spring Boot application should now be running locally.
 
-Project Structure
+##Project Structure
 The project has the following structure:
 
 src/main/java/com/example: Java source code.
@@ -50,12 +52,12 @@ MySQL Connector
 And more...
 You can find a complete list of dependencies in the build.gradle file.
 
-Configuration
+##Configuration
 The project is configured to use Java 11. Make sure you have Java 11 installed on your system.
 
 You can configure database settings in the application.properties or application.yml file, depending on your chosen database.
 
-Contributing
+##Contributing
 If you'd like to contribute to this project, please follow these guidelines:
 
 Fork the repository.
