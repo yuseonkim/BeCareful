@@ -78,6 +78,5 @@ public class AIController {
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response.getBody());
-
     }
 }

@@ -4,7 +4,10 @@ import com.example.becarefulbackendapi.config.Jwt.JwtProvider;
 import com.example.becarefulbackendapi.config.auth.OauthService;
 import com.example.becarefulbackendapi.config.auth.PrincipalDetails;
 import com.example.becarefulbackendapi.config.utils.ApiUtils;
+import com.example.becarefulbackendapi.domain.User;
 import com.example.becarefulbackendapi.dto.KakaoProfile;
+import com.example.becarefulbackendapi.repository.UserRepository;
+import com.example.becarefulbackendapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -20,7 +23,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
@@ -30,7 +36,9 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 public class IndexController {
-//    private final OauthService oauthService;
+    private final UserService userService;
+
+    //    private final OauthService oauthService;
 ////    String externalServerUrl = "http://localhost:8070/main"; // 외부 서버의 URL
 ////    HttpHeaders headers = new HttpHeaders();
 ////        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -60,6 +68,18 @@ public class IndexController {
         System.out.println("oauth2User : "+oAuth2.getAttributes());
 
         return "세션 정보 확인";
+    }
+
+    @GetMapping("/loginRedirect")
+    public RedirectView redirectToAnotherServer(String token,HttpServletResponse response) {
+        // 다른 서버로 리디렉션하기 전에 헤더 설정
+        String jwt = token;
+        System.out.println(jwt);
+        jwt= jwt.replace("Bearer ","");
+        response.setHeader("Authorization", jwt);
+        response.setContentType("text/html;charset=UTF-8");
+        // 리디렉션
+        return new RedirectView("http://localhost:3000?token="+jwt);
     }
 
 
@@ -118,8 +138,11 @@ public class IndexController {
 
 
 
-    @GetMapping("user/agree")
-    public String agree(){
-        return "agree";
-    }
+//    @PostMapping("user/agree")
+//    public @ResponseBody ResponseEntity<?> agree(String check, @AuthenticationPrincipal PrincipalDetails principalDetails){
+//        User user = principalDetails.getUser();
+//        userService.LocationSubmitAgree(user.getUsername(),check);
+//        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+//        return ResponseEntity.ok(apiResult);
+//    }
 }

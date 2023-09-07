@@ -23,13 +23,14 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         Long providerId = principalDetails.getAttribute("id");
-        String username = "kakao" + providerId;
+        String username = "kakao_" + providerId;
         Map<String, Object> properties = (Map<String, Object>) principalDetails.getAttributes().get("properties");
         String nickname = (String) properties.get("nickname");
         System.out.println("=============nickname========== :"+ nickname);
         String jwt = JwtProvider.create(username, nickname);
         System.out.println(jwt);
         response.addHeader(HttpHeaders.AUTHORIZATION, jwt);
+        response.sendRedirect("/loginRedirect?token="+jwt);
     }
 }
 
